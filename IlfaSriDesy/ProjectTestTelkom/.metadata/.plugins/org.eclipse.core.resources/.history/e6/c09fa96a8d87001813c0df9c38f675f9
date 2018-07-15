@@ -1,0 +1,75 @@
+package com.projecttesttelkom.springbootrestapiifasridesy.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.SocketUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.projecttesttelkom.springbootrestapiifasridesy.dao.BookDAO;
+import com.projecttesttelkom.springbootrestapiifasridesy.model.Book;
+
+@RestController
+public class BookController {
+	@Autowired
+	BookDAO bookDAO;
+	
+//	@RequestMapping(value="books", method = RequestMethod.GET)
+//	public @ResponseBody Book getBook(@RequestParam("id") Long bookId){
+//	    Book i = bookDAO.findById(bookId);         
+//	    String Itemname=i.getTitle();
+//	    Long price= i.getPrice();
+//	    return i;
+//	}
+	/*http://localhost:8888/books?id=4*/
+	
+	@RequestMapping(value="books", method = RequestMethod.GET)
+	public @ResponseBody Map getBook(@RequestParam Map<String,String> requestParams){
+	    String query = requestParams.get("query");
+	    String sort = requestParams.get("sort");
+	    String filterStatus = requestParams.get("filterStatus");
+	    Integer pageNumber = Integer.parseInt(requestParams.get("pageNumber"));
+	    Integer pageSize = Integer.parseInt(requestParams.get("pageSize"));
+		
+	    Sort sortObject = new Sort(new Sort.Order(Direction.ASC, sort));
+		Pageable pageable = new PageRequest(pageNumber, pageSize, sortObject);
+		List<Book> data = bookDAO.getDataApi(query, filterStatus, pageable);
+		
+		
+		Map meta = new HashMap();
+		meta.put("page", pageNumber);
+		meta.put("size", pageSize);
+		
+		Map result=new HashMap();
+		try {
+			result.put("status", ResponseEntity.ok());
+		} catch (Exception e) {
+			result.put("status", ResponseEntity.notFound().build());
+		}
+		result.put("data", data);
+		result.put("meta", meta);
+	    return result;
+	}
+	
+	
+}

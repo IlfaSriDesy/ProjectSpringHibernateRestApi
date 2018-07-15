@@ -1,0 +1,5 @@
+package com.projecttesttelkom.springbootrestapiifasridesy.model;
+
+public class Book {
+
+}

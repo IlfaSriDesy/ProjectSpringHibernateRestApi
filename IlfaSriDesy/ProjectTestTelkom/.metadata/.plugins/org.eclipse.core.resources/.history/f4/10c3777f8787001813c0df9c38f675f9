@@ -1,0 +1,49 @@
+package com.projecttesttelkom.springbootrestapiifasridesy.dao;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import com.projecttesttelkom.springbootrestapiifasridesy.model.Book;
+import com.projecttesttelkom.springbootrestapiifasridesy.repository.BookRepository;
+
+@Service
+public class BookDAO {
+	@Autowired
+	BookRepository bookRepository;
+	
+	/*save*/
+	public Book save(Book book){
+		return bookRepository.save(book);
+	}
+	
+	/*read all*/
+	public List<Book> readAll(){
+		return bookRepository.findAll();
+	}
+	
+	/*search by id*/
+	public Book findById(Long bookId){
+		return bookRepository.findOne(bookId);
+	}
+	
+	/*delete by object*/
+	public void delete(Book book){
+		bookRepository.delete(book);
+	}
+	
+	public List<Book> getDataApi(String q, String s, Sort sort){
+		System.out.println(" xxx==================================");
+		return bookRepository.getDataApi(q, s, sort);
+	}
+	
+	public Sort sortByIdAsc(String sort){
+		return new Sort(Sort.Direction.ASC, "title");
+	}
+	
+	public List<Book> findAllSortBy(String sort){
+		return bookRepository.findAll(sortByIdAsc(sort));
+	}
+}

@@ -1,0 +1,5 @@
+com\projecttesttelkom\springbootrestapiifasridesy\model\Book.class
+com\projecttesttelkom\springbootrestapiifasridesy\controller\BookController.class
+com\projecttesttelkom\springbootrestapiifasridesy\dao\BookDAO.class
+com\projecttesttelkom\springbootrestapiifasridesy\repository\BookRepository.class
+com\projecttesttelkom\springbootrestapiifasridesy\BookApplication.class

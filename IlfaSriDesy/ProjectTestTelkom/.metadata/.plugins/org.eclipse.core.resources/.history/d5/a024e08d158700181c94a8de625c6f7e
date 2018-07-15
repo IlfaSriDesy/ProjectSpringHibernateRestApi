@@ -1,0 +1,5 @@
+package com.projecttesttelkom.springbootrestapiifasridesy.repository;
+
+public class BookRepository {
+
+}

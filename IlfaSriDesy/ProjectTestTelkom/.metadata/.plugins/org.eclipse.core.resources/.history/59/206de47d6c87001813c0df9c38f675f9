@@ -1,0 +1,5 @@
+package com.projecttesttelkom.springbootrestapiifasridesy.dao.impl;
+
+public class BookDAOImpl {
+
+}

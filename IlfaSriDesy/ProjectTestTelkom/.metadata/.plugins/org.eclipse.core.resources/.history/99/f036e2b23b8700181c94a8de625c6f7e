@@ -1,0 +1,9 @@
+package com.projecttesttelkom.springbootrestapiifasridesy.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.projecttesttelkom.springbootrestapiifasridesy.model.Book;
+
+public interface BookRepository extends JpaRepository<Book, Long>{
+
+}

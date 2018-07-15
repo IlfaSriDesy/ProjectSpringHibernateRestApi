@@ -1,0 +1,13 @@
+package com.projecttesttelkom.springbootrestapiifasridesy.repository;
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.projecttesttelkom.springbootrestapiifasridesy.model.Book;
+
+public interface BookRepository extends JpaRepository<Book, Long>{
+	@Query(value = "SELECT * FROM book_db WHERE title like '%?0%' order by ?1 asc", nativeQuery = true)
+	Book getDataApi(String q, String sort);
+
+}
